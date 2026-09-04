@@ -1,0 +1,23 @@
+policy,energy (kWh),shed (kWh),starts,forecast
+Efficiency-greedy,0.3233999999999997,12.699399999999919,0,none
+Fixed reserve 4 kWh,23.932199999999984,4.354299999999951,1,none
+Fixed reserve 8 kWh,30.646799999999963,0.41989999999996475,1,none
+Fixed reserve 10 kWh,33.08739999999998,0.0,1,none
+MPC H=0.5 h,13.823399999999987,6.492199999999948,1,0.5 h
+MPC H=0.5 h + terminal viability,20.76089999999993,0.0,1,0.5 h
+MPC H=1.0 h,18.69839999999998,4.354299999999951,1,1.0 h
+MPC H=1.0 h + terminal viability,18.51089999999992,0.0,1,1.0 h
+MPC H=2.0 h,18.69839999999998,0.0,1,2.0 h
+MPC H=2.0 h + terminal viability,15.46410000000001,0.0,1,2.0 h
+MPC H=4.0 h,13.776599999999974,0.0,1,4.0 h
+MPC H=4.0 h + terminal viability,16.823399999999985,0.0,1,4.0 h
+MPC H=6.0 h,13.260899999999987,0.0,0,6.0 h
+MPC H=6.0 h + terminal viability,13.589099999999974,0.0,1,6.0 h
+"MPC H=4 h, 10% under-forecast",13.635899999999923,0.07625000000003264,1,4 h
+"MPC H=4 h + terminal viability, 10% under-forecast",19.0266,0.08334999999998315,1,4 h
+"MPC H=4 h, 20% under-forecast",16.589099999999963,0.5628499999999993,2,4 h
+"MPC H=4 h + terminal viability, 20% under-forecast",16.214099999999974,0.937849999999985,1,4 h
+"MPC H=4 h, 30% under-forecast",14.010899999999982,2.2225999999999817,2,4 h
+"MPC H=4 h + terminal viability, 30% under-forecast",13.635899999999985,2.597599999999963,1,4 h
+Viable bang-bang,20.882999999999978,0.0,1,none
+Viable proportional,25.16335126808698,0.0,1,none

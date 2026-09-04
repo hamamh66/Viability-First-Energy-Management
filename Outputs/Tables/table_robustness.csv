@@ -1,0 +1,11 @@
+case,policy,energy (kWh),shed (kWh)
+"true $d_{hi}=6$, nominal kernel",bang-bang,27.80339999999994,3.25659999999996
+"true $d_{hi}=6$, nominal kernel",proportional,29.10474249802763,3.0735662708906726
+"true $d_{hi}=6$, inflated kernel $\epsilon_d=1$",bang-bang,29.967799999999954,0.0
+"true $d_{hi}=6$, inflated kernel $\epsilon_d=1$",proportional,31.959326850672703,0.0
+"true $R=1.2$, nominal kernel",bang-bang,22.983040000000013,1.6000799999999535
+"true $R=1.2$, nominal kernel",proportional,24.62951233697282,1.3900939307373041
+"true $R=1.2$, derated kernel $\epsilon_R=0.3$",bang-bang,23.218240000000012,0.0
+"true $R=1.2$, derated kernel $\epsilon_R=0.3$",proportional,26.308016229712443,0.0
+"$\Delta t=0.2$ h, $\bar\mu=0.5<2d_{hi}\Delta t$",bang-bang,25.439999999999994,0.19000000000000222
+"$\Delta t=0.2$ h, $\bar\mu=0.5<2d_{hi}\Delta t$",proportional,26.038400000000003,0.0
