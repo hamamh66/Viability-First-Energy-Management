@@ -1,0 +1,49 @@
+{
+  "params": {
+    "S_max": 20.0,
+    "G_max": 6.0,
+    "R": 1.5,
+    "d_hi": 5.0,
+    "d_lo": -3.0,
+    "dt": 0.02,
+    "eta": 1.0,
+    "tau": 0.0,
+    "s_dod": 0.0,
+    "L_nc": 0.0,
+    "T_d": Infinity
+  },
+  "cfg": {
+    "seed": 20250901,
+    "T_wc": 12.0,
+    "s0": 10.0,
+    "g0": 1.0,
+    "drought_start": 2.5,
+    "drought_end": 7.5,
+    "n_mc": 300,
+    "T_mc": 24.0,
+    "ou_theta": 1.2,
+    "ou_sigma": 1.1,
+    "ou_mean_offset": 1.0,
+    "ou_mean_amp": 1.5,
+    "ou_period": 24.0,
+    "n_plateau": [
+      1,
+      2
+    ],
+    "plateau_dur": [
+      2.0,
+      6.0
+    ],
+    "mu_bar_bb": 0.5,
+    "mu_bar_prop": 1.0,
+    "kp_prop": 3.0,
+    "mpc_block": 0.5,
+    "mpc_nu": 5,
+    "mpc_ns": 61,
+    "mpc_ng": 31,
+    "mpc_shed_penalty": 1000.0,
+    "c_marginal": 1.0,
+    "c_noload": 0.6,
+    "c_start": 2.0
+  }
+}

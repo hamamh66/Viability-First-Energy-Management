@@ -1,0 +1,78 @@
+
+CONFIGURATION      seed=20250901  dt=0.02 h  S_max=20.0 kWh  G_max=6.0 kW
+                   R=1.5 kW/h  d_hi=5.0 kW  d_lo=-3.0 kW
+OU disturbance     theta=1.2  sigma=1.1  mean=1.0
+                   +1.5*sin(2pi t/24.0)  plateaus=(1, 2)
+                   of (2.0, 6.0) h at d_hi;  n=300, T=24.0 h
+
+KERNEL
+  viable fraction (integral / closed form) 0.8843 / 0.8843
+  closed-form validity  R >= 0.625 kW/h            [R = 1.5]
+  s_min(0)                                 8.333 kWh
+  grid check (161x121, h=0.06)          0.890
+  sampled-data margin 2*d_hi*dt            0.20 kWh   [used 0.5]
+
+WORST-CASE DROUGHT (12 h)
+              policy  dispatchable energy (kWh)  unserved critical (kWh)  starts  min margin (kWh)  affine cost
+   Efficiency-greedy                       0.32                    12.70       0             -8.33         0.72
+Fixed reserve 10 kWh                      33.09                     0.00       1              1.62        40.73
+    Viable bang-bang                      20.88                     0.00       1              0.48        27.73
+ Viable proportional                      25.16                     0.00       1              0.50        32.50
+
+PREDICTIVE CONTROL (worst case)
+                                            policy  energy (kWh)  shed (kWh)  starts forecast
+                                       MPC H=0.5 h         13.82        6.49       1    0.5 h
+                  MPC H=0.5 h + terminal viability         20.76        0.00       1    0.5 h
+                                       MPC H=1.0 h         18.70        4.35       1    1.0 h
+                  MPC H=1.0 h + terminal viability         18.51        0.00       1    1.0 h
+                                       MPC H=2.0 h         18.70        0.00       1    2.0 h
+                  MPC H=2.0 h + terminal viability         15.46        0.00       1    2.0 h
+                                       MPC H=4.0 h         13.78        0.00       1    4.0 h
+                  MPC H=4.0 h + terminal viability         16.82        0.00       1    4.0 h
+                                       MPC H=6.0 h         13.26        0.00       0    6.0 h
+                  MPC H=6.0 h + terminal viability         13.59        0.00       1    6.0 h
+                     MPC H=4 h, 10% under-forecast         13.64        0.08       1      4 h
+MPC H=4 h + terminal viability, 10% under-forecast         19.03        0.08       1      4 h
+                     MPC H=4 h, 20% under-forecast         16.59        0.56       2      4 h
+MPC H=4 h + terminal viability, 20% under-forecast         16.21        0.94       1      4 h
+                     MPC H=4 h, 30% under-forecast         14.01        2.22       2      4 h
+MPC H=4 h + terminal viability, 30% under-forecast         13.64        2.60       1      4 h
+
+MONTE CARLO (n=300, 24 h)
+              policy  P(shed>0)  CP 95% upper  mean shed  median shed  P95 shed  mean energy  P95 energy  min margin
+   Efficiency-greedy      1.000         1.000     38.184       37.278    57.309        0.323       0.323      -8.333
+Fixed reserve 10 kWh      0.000         0.010      0.000        0.000     0.000       54.627      75.244       1.567
+    Viable bang-bang      0.000         0.010      0.000        0.000     0.000       45.809      64.555       0.312
+ Viable proportional      0.000         0.010      0.000        0.000     0.000       46.614      65.751       0.500
+  exact one-sided 95% upper bound for 0/300: 0.0099
+
+MODEL UNCERTAINTY
+                                           case       policy  energy (kWh)  shed (kWh)
+                true $d_{hi}=6$, nominal kernel    bang-bang         27.80        3.26
+                true $d_{hi}=6$, nominal kernel proportional         29.10        3.07
+true $d_{hi}=6$, inflated kernel $\epsilon_d=1$    bang-bang         29.97        0.00
+true $d_{hi}=6$, inflated kernel $\epsilon_d=1$ proportional         31.96        0.00
+                   true $R=1.2$, nominal kernel    bang-bang         22.98        1.60
+                   true $R=1.2$, nominal kernel proportional         24.63        1.39
+  true $R=1.2$, derated kernel $\epsilon_R=0.3$    bang-bang         23.22        0.00
+  true $R=1.2$, derated kernel $\epsilon_R=0.3$ proportional         26.31        0.00
+$\Delta t=0.2$ h, $\bar\mu=0.5<2d_{hi}\Delta t$    bang-bang         25.44        0.19
+$\Delta t=0.2$ h, $\bar\mu=0.5<2d_{hi}\Delta t$ proportional         26.04        0.00
+
+REFINED PLANT (eta=0.92, s_dod=2.0, tau=10 min)
+                              policy  energy (kWh)  shed (kWh)  starts  affine cost  min margin
+                   Efficiency-greedy          0.32       17.15       0         0.72       -9.96
+                Fixed reserve 10 kWh         33.28        1.15       1        40.97       -2.05
+   Viable bang-bang (refined kernel)         23.51        0.00       1        30.79        0.30
+Viable proportional (refined kernel)         26.80        0.00       1        34.57        0.53
+
+KERNEL VARIANTS
+                   variant  s_min(0) [kWh]  viable fraction  infinite-horizon kernel
+                   nominal           8.333            0.884                     True
+    $\eta=0.9$ (discharge)           9.259            0.871                     True
+     DoD floor $s_{dod}=2$          10.333            0.784                     True
+   dead time $\tau=10$ min           9.167            0.867                     True
+      dead time $\tau=1$ h          13.333            0.780                     True
+$T_d=2$ h (finite-horizon)           7.000            0.892                    False
+ curtailable $L_{nc}=1$ kW           5.333            0.941                     True
+        refined plant (E6)          11.964            0.755                     True
