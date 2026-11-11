@@ -1,12 +1,12 @@
 # Viability-First Energy Management for Islanded Microgrids
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/USER/Viability-First-Energy-Management/blob/main/Viability_First_Energy.ipynb)
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hamamh66/Viability-First-Energy-Management/blob/main/Viability_First_Energy.ipynb)
 
 ## Overview
 
 This repository provides the reproducible computational companion to the manuscript:
 
-**“Viability-First Energy Management for Islanded Microgrids: Closed-Form Resilience Certification and Pareto Dispatch under Renewable Drift.”**
+**“Viability-First Energy Management for Islanded Microgrids: Closed-Form Storage–Ramp Recoverability Certification and Viability-Constrained Dispatch under Renewable Drift.”**
 
 The work develops a **viability-first energy-management framework** for islanded microgrids combining renewable generation, battery storage, and a ramp-limited dispatchable energy source. Instead of optimizing economic performance over all instantaneously feasible states, the proposed strategy first identifies the states from which critical-load service remains recoverable under the worst admissible renewable deficit. Economic dispatch is then restricted to this certified viable region.
 
@@ -46,9 +46,29 @@ The repository supports the manuscript's main methodological and numerical contr
 
 ```text
 .
-├── Viability_First_Energy.ipynb   # Canonical reproducible notebook
+├── Viability_First_Energy.ipynb   # Experiments E0–E6
+├── revision/                      # Experiments E7–E11
+│   ├── vfem_core.py               # plant, kernel, policies and MPC (from the notebook)
+│   ├── vfem_ext.py                # power limit, abrupt disturbances, robust/chance-constrained MPC,
+│   │                              # delay and measurement error, state-dependent trigger
+│   ├── rev_experiments.py         # runs E7–E11, writes revision/results
+│   ├── rev_figs.py                # figures in revision/figures
+│   ├── results/                   # det.json, mc_ff.csv, mc_mpc.csv, impl_mc.csv
+│   └── figures/
 └── README.md
 ```
+
+### Experiments E7–E11
+
+| Experiment | Purpose |
+|---|---|
+| E7 | Abrupt and recurring droughts; battery/inverter power limit and the power-limited kernel with dispatch floor `g >= d_hi - P_b`; ensembles with abrupt renewable collapses and rapid switching (300 scenarios each) |
+| E8 | Robust (min–max tube), chance-constrained and worst-case-tube MPC under perfect, biased and persistence forecasts |
+| E9 | Implementation uncertainty: actuation delay and state-of-charge measurement error |
+| E10 | Conservatism of the sampled-data condition `mu_bar >= 2 d_hi dt`: exact worst-case loss, adversarial test, state-dependent trigger |
+| E11 | Non-dominance of all tested policies in mean dispatchable energy and mean unserved energy |
+
+Run with `cd revision && python rev_experiments.py && python rev_figs.py` (about 30 minutes on two cores; seeds 20250901–20250903).
 
 The notebook is designed as the **single canonical computational pipeline** for the study.
 
@@ -174,7 +194,7 @@ The framework therefore connects **energy storage, energy conversion, renewable 
 If you use this repository, please cite the associated manuscript:
 
 > Y. Y. Ghadi, R. Zayoud, I. Alreshidi, S. Guizani, and H. Hamam,  
-> **“Viability-First Energy Management for Islanded Microgrids: Closed-Form Resilience Certification and Pareto Dispatch under Renewable Drift.”**
+> **“Viability-First Energy Management for Islanded Microgrids: Closed-Form Storage–Ramp Recoverability Certification and Viability-Constrained Dispatch under Renewable Drift.”**
 
 Publication metadata and DOI can be added here once available.
 
