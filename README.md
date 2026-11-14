@@ -47,13 +47,16 @@ The repository supports the manuscript's main methodological and numerical contr
 ```text
 .
 ├── Viability_First_Energy.ipynb   # Experiments E0–E6
-├── revision/                      # Experiments E7–E11
+├── revision/                      # Experiments E7–E12
 │   ├── vfem_core.py               # plant, kernel, policies and MPC (from the notebook)
 │   ├── vfem_ext.py                # power limit, abrupt disturbances, robust/chance-constrained MPC,
 │   │                              # delay and measurement error, state-dependent trigger
 │   ├── rev_experiments.py         # runs E7–E11, writes revision/results
 │   ├── rev_figs.py                # figures in revision/figures
-│   ├── results/                   # det.json, mc_ff.csv, mc_mpc.csv, impl_mc.csv
+│   ├── rev_e12_measured.py        # experiment E12 on measured load and PV data
+│   ├── rev_e12_fig.py             # figure for E12
+│   ├── data/                      # ausgrid_customer12_2011-2012.csv (measured, half-hourly)
+│   ├── results/                   # det.json, mc_ff.csv, mc_mpc.csv, impl_mc.csv, e12_*.json/csv
 │   └── figures/
 └── README.md
 ```
@@ -69,6 +72,16 @@ The repository supports the manuscript's main methodological and numerical contr
 | E11 | Non-dominance of all tested policies in mean dispatchable energy and mean unserved energy |
 
 Run with `cd revision && python rev_experiments.py && python rev_figs.py` (about 30 minutes on two cores; seeds 20250901–20250903).
+
+### Experiment E12: measured load and PV profiles
+
+| Experiment | Purpose |
+|---|---|
+| E12 | One year (1 July 2011 to 30 June 2012) of half-hourly measured household consumption and rooftop PV generation replaces the synthetic disturbance. The two series are scaled by constant factors so that the net deficit spans the admissible range `[d_lo, d_hi]`, and are held constant over each half hour. All policies are run over the 366 days on the nominal plant; a second test estimates `d_hi` from the first three months and runs the remaining nine, with and without kernel inflation. |
+
+Run with `cd revision && python rev_e12_measured.py && python rev_e12_fig.py` (about one hour on two cores; the predictive controllers are checkpointed in `results/e12_ckpt` and resume if interrupted). The experiment is deterministic.
+
+**Data.** `revision/data/ausgrid_customer12_2011-2012.csv` holds the general consumption (`GC`) and gross generation (`GG`) of customer 12 of the Ausgrid *Solar home electricity data* (300 homes in the Sydney region, half-hourly, released by Ausgrid under a Creative Commons Attribution licence). The one-year extract was prepared by Pierre Haessig (<https://github.com/pierre-haessig/ausgrid-solar-data>, CC BY 4.0) and is redistributed here unchanged. The dataset is described in E. L. Ratnam, S. R. Weller, C. M. Kellett and A. T. Murray, "Residential load and rooftop PV generation: an Australian distribution network dataset", *International Journal of Sustainable Energy* 36(8), 787–806, 2017.
 
 The notebook is designed as the **single canonical computational pipeline** for the study.
 
